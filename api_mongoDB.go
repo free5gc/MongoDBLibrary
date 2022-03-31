@@ -85,6 +85,12 @@ func RestfulAPIPutOne(collName string, filter bson.M, putData map[string]interfa
 	}
 }
 
+func RestfulAPIPullOne(collName string, filter bson.M, putData map[string]interface{}) bool {
+	collection := Client.Database(dbName).Collection(collName)
+	collection.UpdateOne(context.TODO(), filter, bson.M{"$pull": putData})
+	return true
+}
+
 func RestfulAPIPutOneNotUpdate(collName string, filter bson.M, putData map[string]interface{}) bool {
 	collection := Client.Database(dbName).Collection(collName)
 
